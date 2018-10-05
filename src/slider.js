@@ -1,6 +1,11 @@
 'use strict';
 
 function slider(id) {
+    const moveLeftHideClassName = 'slide-move-left-hide';
+    const moveRightHideClassName = 'slide-move-right-hide';
+    const moveLeftShowClassName = 'slide-move-left-show';
+    const moveRightShowClassName = 'slide-move-right-show';
+
     let slideIdex = 0;
     let slidesArr = [];
 
@@ -20,18 +25,25 @@ function slider(id) {
     function render(index){
         console.log(index);
         for (let i = 0; i < slidesArr.length; i++) {
-            slidesArr[i].style.display = 'none';
+            // slidesArr[i].style.display = 'none';
+            slidesArr[i].style.zIndex = 0;
         }
 
-        slidesArr[index].style.display = 'block';
+        // slidesArr[index].style.display = 'block';
+        slidesArr[index].style.zIndex = 1;
     }
 
     function moveLeft() {
-        render(changeSlideIndex(-1));
+        setClass(slidesArr[slideIdex], moveLeftHideClassName);
+        render(changeSlideIndex(-1)); 
+        setClass(slidesArr[slideIdex], moveLeftShowClassName);
+        
     }
 
     function moveRight() {
+        setClass(slidesArr[slideIdex], moveRightHideClassName);
         render(changeSlideIndex(+1));
+        setClass(slidesArr[slideIdex], moveRightShowClassName);
     }
 
     function changeSlideIndex(offset){
@@ -46,5 +58,14 @@ function slider(id) {
         }
 
         return slideIdex;
+    }
+
+    function setClass(el, className){
+        el.classList.remove(moveLeftHideClassName);
+        el.classList.remove(moveRightHideClassName);
+        el.classList.remove(moveLeftShowClassName);
+        el.classList.remove(moveRightShowClassName);
+
+        el.classList.add(className);
     }
 }

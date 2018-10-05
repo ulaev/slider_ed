@@ -14,6 +14,7 @@ a.slide-button{
     background-color: #000000; 
     opacity: 0.5;
     font-weight: bold; 
+    z-index: 2;
 }
 
 a.slide-button-left{
@@ -27,5 +28,47 @@ a.slide-button-right{
 }
 
 .slides > img {
-    object-fit:contain;
+    object-fit: cover;
+}
+
+.slide {
+    position: absolute;
+    width: 800px;
+    height: 600px;
+}
+
+.slide-move-left-hide {
+    animation: move-left-hide 1s 
+}
+
+.slide-move-right-hide {
+    animation: move-right-hide 1s 
+}
+
+.slide-move-left-show {
+    animation: move-left-show 1s 
+}
+
+.slide-move-right-show {
+    animation: move-right-show 1s 
+}
+
+@keyframes move-left-hide {
+    from {right: 0px; z-index: 2;}
+    to {right: 800px; z-index: 1;}
+}
+
+@keyframes move-right-hide {
+    from {left: 0px; z-index: 2;}
+    to {left: 800px; z-index: 1;}
+}
+
+@keyframes move-left-show {
+    from {right: -800px; z-index: 2;}
+    to {right: 0px; z-index: 1;}
+}
+
+@keyframes move-right-show {
+    from {left: -800px; z-index: 2;}
+    to {left: 0px; z-index: 1;}
 }
