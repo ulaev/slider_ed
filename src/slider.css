@@ -1,7 +1,7 @@
 .container {
     position: relative; 
-    width: 800px; 
-    height: 600px; 
+    /* width: 800px; 
+    height: 600px;  */
     overflow: hidden;
 }
 
@@ -9,7 +9,6 @@ a.slide-button{
     padding: 300px 0px 0px 15px; 
     top: 0px; 
     width: 30px; 
-    height: 600px; 
     color: #FFF; 
     background-color: #000000; 
     opacity: 0.5;
@@ -33,8 +32,6 @@ a.slide-button-right{
 
 .slide {
     position: absolute;
-    width: 800px;
-    height: 600px;
 }
 
 .slide-move-left-hide {

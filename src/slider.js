@@ -1,71 +1,115 @@
 'use strict';
 
-function slider(id) {
-    const moveLeftHideClassName = 'slide-move-left-hide';
-    const moveRightHideClassName = 'slide-move-right-hide';
-    const moveLeftShowClassName = 'slide-move-left-show';
-    const moveRightShowClassName = 'slide-move-right-show';
+class slider {
+    static init({id, width = 800, height = 600 }) {
+        ((id, width, height ) => {
+            const moveLeftHideClassName = 'slide-move-left-hide';
+            const moveRightHideClassName = 'slide-move-right-hide';
+            const moveLeftShowClassName = 'slide-move-left-show';
+            const moveRightShowClassName = 'slide-move-right-show';
 
-    let slideIdex = 0;
-    let slidesArr = [];
+            let slideIdex = 0;
+            let slidesArr = [];
 
-    const leftButton = document.getElementById('left');
-    const rightButton = document.getElementById('right');
-    const slidesElement = document.getElementById(id);
+            var slidesDiv = pretreatment(id);
+            treatment(slidesDiv);
+            render(slideIdex);
 
-    leftButton.onclick = moveLeft;
-    rightButton.onclick = moveRight;
+            function pretreatment(id) {
+                const containerDiv = document.getElementById(id);
+                const slidesDiv = document.createElement("div");
 
-    for (let i = 0; i < slidesElement.children.length; i++) {
-        slidesArr[i] = slidesElement.children[i];
-    }
+                containerDiv.style.height = height + 'px';
+                containerDiv.style.width = width + 'px';
+                slidesDiv.style.height = height + 'px';
+                slidesDiv.style.width = width + 'px';
 
-    render(slideIdex);
+                containerDiv.classList.add('container');
+                slidesDiv.classList.add('slides');
 
-    function render(index){
-        console.log(index);
-        for (let i = 0; i < slidesArr.length; i++) {
-            // slidesArr[i].style.display = 'none';
-            slidesArr[i].style.zIndex = 0;
-        }
+                while (containerDiv.firstChild) {
+                    slidesDiv.appendChild(containerDiv.firstChild);
+                }
 
-        // slidesArr[index].style.display = 'block';
-        slidesArr[index].style.zIndex = 1;
-    }
+                for (let index = 0; index < slidesDiv.children.length; index++) {
+                    slidesDiv.children[index].classList.add('slide');
+                    slidesDiv.children[index].style.width = width + 'px';
+                    slidesDiv.children[index].style.height = height + 'px';
+                }
 
-    function moveLeft() {
-        setClass(slidesArr[slideIdex], moveLeftHideClassName);
-        render(changeSlideIndex(-1)); 
-        setClass(slidesArr[slideIdex], moveLeftShowClassName);
-        
-    }
+                containerDiv.appendChild(slidesDiv);
 
-    function moveRight() {
-        setClass(slidesArr[slideIdex], moveRightHideClassName);
-        render(changeSlideIndex(+1));
-        setClass(slidesArr[slideIdex], moveRightShowClassName);
-    }
+                const left = document.createElement('a');
+                left.classList.add('slide-button', 'slide-button-left');
+                left.style.height = height + 'px';
+                left.innerHTML = '&lt;';
+                left.onclick = moveLeft;
 
-    function changeSlideIndex(offset){
-        slideIdex += offset;
-        
-        if (slideIdex > slidesArr.length -1){
-            slideIdex = 0;
-        }
+                const right = document.createElement('a');
+                right.classList.add('slide-button', 'slide-button-right');
+                right.style.height = height + 'px';
+                right.innerHTML = '&gt';
+                right.onclick = moveRight;
 
-        if (slideIdex < 0 ){
-            slideIdex = slidesArr.length - 1;
-        }
+                containerDiv.appendChild(left);
+                containerDiv.appendChild(right);
 
-        return slideIdex;
-    }
+                return slidesDiv;
+            }
 
-    function setClass(el, className){
-        el.classList.remove(moveLeftHideClassName);
-        el.classList.remove(moveRightHideClassName);
-        el.classList.remove(moveLeftShowClassName);
-        el.classList.remove(moveRightShowClassName);
+            function treatment(slidesDiv) {
+                for (let i = 0; i < slidesDiv.children.length; i++) {
+                    slidesArr[i] = slidesDiv.children[i];
+                }
+            }
 
-        el.classList.add(className);
+            function render(index) {
+                console.log(index);
+                for (let i = 0; i < slidesArr.length; i++) {
+                    // slidesArr[i].style.display = 'none';
+                    slidesArr[i].style.zIndex = 0;
+                }
+
+                // slidesArr[index].style.display = 'block';
+                slidesArr[index].style.zIndex = 1;
+            }
+
+            function moveLeft() {
+                setClass(slidesArr[slideIdex], moveLeftHideClassName);
+                changeSlideIndex(-1)
+                setClass(slidesArr[slideIdex], moveLeftShowClassName);
+                render(slideIdex);
+            }
+
+            function moveRight() {
+                setClass(slidesArr[slideIdex], moveRightHideClassName);
+                changeSlideIndex(+1)
+                setClass(slidesArr[slideIdex], moveRightShowClassName);
+                render(slideIdex);
+            }
+
+            function changeSlideIndex(offset) {
+                slideIdex += offset;
+
+                if (slideIdex > slidesArr.length - 1) {
+                    slideIdex = 0;
+                }
+
+                if (slideIdex < 0) {
+                    slideIdex = slidesArr.length - 1;
+                }
+
+                return slideIdex;
+            }
+
+            function setClass(el, className) {
+                el.classList.remove(moveLeftHideClassName);
+                el.classList.remove(moveRightHideClassName);
+                el.classList.remove(moveLeftShowClassName);
+                el.classList.remove(moveRightShowClassName);
+
+                el.classList.add(className);
+            }
+        })(id, width, height);
     }
 }
