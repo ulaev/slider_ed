@@ -1,8 +1,8 @@
 'use strict';
 
 class slider {
-    static init({id, width = 800, height = 600 }) {
-        ((id, width, height ) => {
+    static init({ id, width = 800, height = 600 }) {
+        ((id, width, height) => {
             const moveLeftHideClassName = 'slide-move-left-hide';
             const moveRightHideClassName = 'slide-move-right-hide';
             const moveLeftShowClassName = 'slide-move-left-show';
@@ -42,12 +42,14 @@ class slider {
                 const left = document.createElement('a');
                 left.classList.add('slide-button', 'slide-button-left');
                 left.style.height = height + 'px';
+                left.style.paddingTop = height / 2 + 'px';
                 left.innerHTML = '&lt;';
                 left.onclick = moveLeft;
 
                 const right = document.createElement('a');
                 right.classList.add('slide-button', 'slide-button-right');
                 right.style.height = height + 'px';
+                right.style.paddingTop = height / 2 + 'px';
                 right.innerHTML = '&gt';
                 right.onclick = moveRight;
 

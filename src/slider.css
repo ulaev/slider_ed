@@ -1,12 +1,10 @@
 .container {
     position: relative; 
-    /* width: 800px; 
-    height: 600px;  */
     overflow: hidden;
 }
 
 a.slide-button{
-    padding: 300px 0px 0px 15px; 
+    padding-left: 15px;
     top: 0px; 
     width: 30px; 
     color: #FFF; 
@@ -51,21 +49,21 @@ a.slide-button-right{
 }
 
 @keyframes move-left-hide {
-    from {right: 0px; z-index: 2;}
-    to {right: 800px; z-index: 1;}
+    from {right: 0; z-index: 2;}
+    to {right: 100%; z-index: 1;}
 }
 
 @keyframes move-right-hide {
-    from {left: 0px; z-index: 2;}
-    to {left: 800px; z-index: 1;}
+    from {left: 0; z-index: 2;}
+    to {left: 100%; z-index: 1;}
 }
 
 @keyframes move-left-show {
-    from {right: -800px; z-index: 2;}
-    to {right: 0px; z-index: 1;}
+    from {right: -100%; z-index: 2;}
+    to {right: 0; z-index: 1;}
 }
 
 @keyframes move-right-show {
-    from {left: -800px; z-index: 2;}
-    to {left: 0px; z-index: 1;}
+    from {left: -100%; z-index: 2;}
+    to {left: 0; z-index: 1;}
 }
