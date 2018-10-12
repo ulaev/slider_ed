@@ -3,6 +3,10 @@
 class slider {
     static init({ id, width = 800, height = 600 }) {
         ((id, width, height) => {
+            let paly = false;
+            let timer = null;
+            let lock = false;
+
             const moveLeftHideClassName = 'slide-move-left-hide';
             const moveRightHideClassName = 'slide-move-right-hide';
             const moveLeftShowClassName = 'slide-move-left-show';
@@ -41,20 +45,25 @@ class slider {
 
                 const left = document.createElement('a');
                 left.classList.add('slide-button', 'slide-button-left');
-                left.style.height = height + 'px';
+                left.style.height = height / 2 + 'px';
                 left.style.paddingTop = height / 2 + 'px';
                 left.innerHTML = '&lt;';
-                left.onclick = moveLeft;
+                left.onclick = () => { !paly ? moveLeft() : {} };
 
                 const right = document.createElement('a');
                 right.classList.add('slide-button', 'slide-button-right');
-                right.style.height = height + 'px';
+                right.style.height = height / 2 + 'px';
                 right.style.paddingTop = height / 2 + 'px';
                 right.innerHTML = '&gt';
-                right.onclick = moveRight;
+                right.onclick = () => { !paly ? moveRight() : {} };
 
                 containerDiv.appendChild(left);
                 containerDiv.appendChild(right);
+
+                const palyPauseButton = document.createElement('div');
+                palyPauseButton.classList.add('paly-pause-button');
+                containerDiv.appendChild(palyPauseButton);
+                palyPauseButton.onclick = playPause;
 
                 return slidesDiv;
             }
@@ -62,6 +71,14 @@ class slider {
             function treatment(slidesDiv) {
                 for (let i = 0; i < slidesDiv.children.length; i++) {
                     slidesArr[i] = slidesDiv.children[i];
+
+                    slidesArr[i].addEventListener('animationstart', function () {
+                        lock = true;
+                    });
+
+                    slidesArr[i].addEventListener('animationend', function () {
+                        lock = false;
+                    });
                 }
             }
 
@@ -77,6 +94,9 @@ class slider {
             }
 
             function moveLeft() {
+                if (lock) {
+                    return;
+                }
                 setClass(slidesArr[slideIdex], moveLeftHideClassName);
                 changeSlideIndex(-1)
                 setClass(slidesArr[slideIdex], moveLeftShowClassName);
@@ -84,6 +104,9 @@ class slider {
             }
 
             function moveRight() {
+                if (lock) {
+                    return;
+                }
                 setClass(slidesArr[slideIdex], moveRightHideClassName);
                 changeSlideIndex(+1)
                 setClass(slidesArr[slideIdex], moveRightShowClassName);
@@ -111,6 +134,17 @@ class slider {
                 el.classList.remove(moveRightShowClassName);
 
                 el.classList.add(className);
+            }
+
+            function playPause(el) {
+                paly = !paly;
+                paly ? el.currentTarget.classList.add('paused') : el.currentTarget.classList.remove('paused');
+
+                if (paly) {
+                    timer = setInterval(function () { moveRight() }, 2000);
+                } else {
+                    clearInterval(timer);
+                }
             }
         })(id, width, height);
     }
