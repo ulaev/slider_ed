@@ -1,0 +1,36 @@
+{
+  "devDependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "babel-cli": "^6.26.0",
+    "babel-loader": "^8.0.4",
+    "babel-preset-es2015": "^6.24.1",
+    "eslint": "^5.7.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-import": "^2.14.0",
+    "webpack": "^4.20.2",
+    "webpack-cli": "^3.1.2"
+  },
+  "name": "slider_ed",
+  "description": "education project",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {},
+  "dependencies": {},
+  "scripts": {
+    "build": "webpack",
+    "babel": "babel --presets es2015 dist/main.js -o build/main.bundle.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ulaev/slider_ed.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ulaev/slider_ed/issues"
+  },
+  "homepage": "https://github.com/ulaev/slider_ed#readme"
+}

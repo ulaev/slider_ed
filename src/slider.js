@@ -149,3 +149,5 @@ class slider {
         })(id, width, height);
     }
 }
+
+export default slider;
