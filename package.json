@@ -21,7 +21,8 @@
   "dependencies": {},
   "scripts": {
     "build": "webpack",
-    "babel": "babel --presets es2015 dist/main.js -o build/main.bundle.js"
+    "babel": "babel --presets es2015 dist/main.js -o build/main.bundle.js",
+    "eslint": "eslint src/**"
   },
   "repository": {
     "type": "git",
