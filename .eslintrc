@@ -3,10 +3,12 @@
     "plugins": [
     ],
     "rules": {
-      "strict": ["warn"],
-      "indent": ["error", "tab"],
+      "strict": "off",
+      "indent": ["error", 4],
       "semi": ["error", "always"],
-      "no-console": 0
+      "no-console": 0,
+      "linebreak-style": 0,
+      "no-plusplus":"off"
     },
     "env": {
       "es6": true,
