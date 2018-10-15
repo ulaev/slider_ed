@@ -1,7 +1,13 @@
 'use strict';
 
 class slider {
-    static init({ id, width = 800, height = 600 }) {
+    static init({
+        id,
+        width = 800,
+        height = 600,
+        autoPlayLeft = false,
+        interval = 2000,
+    }) {
         let paly = false;
         let timer = null;
         let lock = false;
@@ -72,7 +78,7 @@ class slider {
             paly ? el.currentTarget.classList.add('paused') : el.currentTarget.classList.remove('paused');
 
             if (paly) {
-                timer = setInterval(() => { moveRight(); }, 2000);
+                timer = setInterval(() => { autoPlayLeft ? moveLeft() : moveRight() }, interval);
             } else {
                 clearInterval(timer);
             }
@@ -134,8 +140,8 @@ class slider {
         function treatment(slidesDivEl) {
             for (let i = 0; i < slidesDivEl.children.length; i++) {
                 slidesArr[i] = slidesDivEl.children[i];
-                slidesArr[i].addEventListener('animationstart', setLock(true));
-                slidesArr[i].addEventListener('animationend', setLock(false));
+                slidesArr[i].addEventListener('animationstart', () => { lock = true });
+                slidesArr[i].addEventListener('animationend', () => { lock = false });
             }
         }
 
